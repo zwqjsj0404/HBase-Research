@@ -1,164 +1,164 @@
 1.
-ÔÚHMaster.finishInitialization·½·¨ÖĞ´¥·¢MasterFileSystemµÄ¹¹Ôìº¯Êı
+åœ¨HMaster.finishInitializationæ–¹æ³•ä¸­è§¦å‘MasterFileSystemçš„æ„é€ å‡½æ•°
 
-2. MasterFileSystemµÄ¹¹Ôìº¯Êı×öµÄÊÂ:
+2. MasterFileSystemçš„æ„é€ å‡½æ•°åšçš„äº‹:
    
-   hbase-site.xmlÎÄ¼şÖĞ¶¨ÒåÁËÒ»¸ö"hbase.rootdir"ÊôĞÔ£¬Õâ¸öÊôĞÔ²»ÄÜÈ±ÉÙ£¬
-   ·ñÔò»á³öÕâÑùµÄ´í:
+   hbase-site.xmlæ–‡ä»¶ä¸­å®šä¹‰äº†ä¸€ä¸ª"hbase.rootdir"å±æ€§ï¼Œè¿™ä¸ªå±æ€§ä¸èƒ½ç¼ºå°‘ï¼Œ
+   å¦åˆ™ä¼šå‡ºè¿™æ ·çš„é”™:
    java.lang.IllegalArgumentException: Can not create a Path from a null string
 	at org.apache.hadoop.fs.Path.checkPathArg(Path.java:75)
 	at org.apache.hadoop.fs.Path.<init>(Path.java:85)
 	at org.apache.hadoop.hbase.util.FSUtils.getRootDir(FSUtils.java:451)
 
 
-	MasterFileSystemµÄ¹¹Ôìº¯ÊıÖĞÏÈÈ¡³öÕâ¸öÊôĞÔµÄÖµ£¬±£´æµ½Path rootdirÕâ¸ö×Ö¶ÎÖĞ
+	MasterFileSystemçš„æ„é€ å‡½æ•°ä¸­å…ˆå–å‡ºè¿™ä¸ªå±æ€§çš„å€¼ï¼Œä¿å­˜åˆ°Path rootdirè¿™ä¸ªå­—æ®µä¸­
 
-	ÕâÊÇwindowsÏÂµÄÅäÖÃÑùÀı:
+	è¿™æ˜¯windowsä¸‹çš„é…ç½®æ ·ä¾‹:
 	<property>
 		<name>hbase.rootdir</name>
 		<value>file:/E:/hbase/data</value>
 	</property>
 
 
-	È»ºó°´ÕÕ´Ë±äÁ¿ºÍµ±Ç°ÅäÖÃ(Configuration)£¬µÃµ½Ò»¸öorg.apache.hadoop.fs.FileSystem
-	Èç¹ûÃ»ÓÃµ½HDFS£¬ÏñÉÏÃæ¾Í»áÊÇorg.apache.hadoop.fs.LocalFileSystem£¬
-	È»ºó¸ù¾İ´ËFileSystemµÃµ½File System Uri,¶ÔÓÚÉÏÃæµÄFileSystemÊÇ"file:///"£¬°ÑÕâ¸öÖµ±£
-	´æµ½ConfigurationµÄÁ½¸öÊôĞÔÖĞ(·Ö±ğÊÇ"fs.default.name"ºÍ"fs.defaultFS",Èç¹ûÅäÖÃÎÄ¼şÖĞÒÑÓĞ£¬ÕâÀï½«»á¸²¸ÇËü)
+	ç„¶åæŒ‰ç…§æ­¤å˜é‡å’Œå½“å‰é…ç½®(Configuration)ï¼Œå¾—åˆ°ä¸€ä¸ªorg.apache.hadoop.fs.FileSystem
+	å¦‚æœæ²¡ç”¨åˆ°HDFSï¼Œåƒä¸Šé¢å°±ä¼šæ˜¯org.apache.hadoop.fs.LocalFileSystemï¼Œ
+	ç„¶åæ ¹æ®æ­¤FileSystemå¾—åˆ°File System Uri,å¯¹äºä¸Šé¢çš„FileSystemæ˜¯"file:///"ï¼ŒæŠŠè¿™ä¸ªå€¼ä¿
+	å­˜åˆ°Configurationçš„ä¸¤ä¸ªå±æ€§ä¸­(åˆ†åˆ«æ˜¯"fs.default.name"å’Œ"fs.defaultFS",å¦‚æœé…ç½®æ–‡ä»¶ä¸­å·²æœ‰ï¼Œè¿™é‡Œå°†ä¼šè¦†ç›–å®ƒ)
 
 
-	½Ó×Å¶ÁÈ¡"hbase.master.distributed.log.splitting"ÊôĞÔµÄÖµ£¬Ä¬ÈÏdistributedLogSplittingÎªtrue£¬
-	±íÊ¾ÆôÓÃSplitLogManager£¬¹¹ÔìÒ»¸öSplitLogManagerÊµÀı:
+	æ¥ç€è¯»å–"hbase.master.distributed.log.splitting"å±æ€§çš„å€¼ï¼Œé»˜è®¤distributedLogSplittingä¸ºtrueï¼Œ
+	è¡¨ç¤ºå¯ç”¨SplitLogManagerï¼Œæ„é€ ä¸€ä¸ªSplitLogManagerå®ä¾‹:
 
 
 	createInitialFileSystemLayout()
 		
 		checkRootDir
 
-			1. µÈ´ıfsÍË³ö°²È«Ä£Ê½(Ä¬ÈÏ10ÃëÖÓÂÖÑ­Ò»´Î£¬¿ÉÍ¨¹ı²ÎÊıhbase.server.thread.wakefrequencyµ÷Õû
+			1. ç­‰å¾…fsé€€å‡ºå®‰å…¨æ¨¡å¼(é»˜è®¤10ç§’é’Ÿè½®å¾ªä¸€æ¬¡ï¼Œå¯é€šè¿‡å‚æ•°hbase.server.thread.wakefrequencyè°ƒæ•´
 
-			2.a. Èç¹ûhbase.rootdirÄ¿Â¼²»´æÔÚÔò´´½¨Ëü£¬
-			     È»ºóÔÚ´ËÄ¿Â¼ÖĞ´´½¨ÃûÎª"hbase.version"µÄÎÄ¼ş£¬ÄÚÈİÊÇÎÄ¼şÏµÍ³°æ±¾ºÅ("7")
+			2.a. å¦‚æœhbase.rootdirç›®å½•ä¸å­˜åœ¨åˆ™åˆ›å»ºå®ƒï¼Œ
+			     ç„¶ååœ¨æ­¤ç›®å½•ä¸­åˆ›å»ºåä¸º"hbase.version"çš„æ–‡ä»¶ï¼Œå†…å®¹æ˜¯æ–‡ä»¶ç³»ç»Ÿç‰ˆæœ¬å·("7")
 
-			2.b. Èç¹ûhbase.rootdirÄ¿Â¼ÒÑ´æÔÚ£¬Ôò¶Á³ö"hbase.version"ÎÄ¼şµÄÄÚÈİÓëµ±Ç°µÄ°æ±¾ºÅÏà±È£¬
-			Èç¹û²»ÏàµÈ£¬Ôò´òÓ¡´íÎóĞÅÏ¢(ÌáÊ¾°æ±¾²»¶Ô)£¬Å×³öÒì³£FileSystemVersionException
+			2.b. å¦‚æœhbase.rootdirç›®å½•å·²å­˜åœ¨ï¼Œåˆ™è¯»å‡º"hbase.version"æ–‡ä»¶çš„å†…å®¹ä¸å½“å‰çš„ç‰ˆæœ¬å·ç›¸æ¯”ï¼Œ
+			å¦‚æœä¸ç›¸ç­‰ï¼Œåˆ™æ‰“å°é”™è¯¯ä¿¡æ¯(æç¤ºç‰ˆæœ¬ä¸å¯¹)ï¼ŒæŠ›å‡ºå¼‚å¸¸FileSystemVersionException
 
-			3. ¼ì²éhbase.rootdirÄ¿Â¼ÏÂÊÇ·ñÓĞÃûÎª"hbase.id"µÄÎÄ¼ş£¬Èç¹ûÃ»ÓĞÔò´´½¨Ëü£¬
-			ÄÚÈİÊÇËæ»úÉú³ÉµÄUUID(×Ü³¤¶È36Î»£¬ÓÉ5²¿·İ×é³É£¬ÓÃ"-"·Ö¸ô)£¬Èç: 6c43f934-37a2-4cae-9d49-3f5abfdc113d
+			3. æ£€æŸ¥hbase.rootdirç›®å½•ä¸‹æ˜¯å¦æœ‰åä¸º"hbase.id"çš„æ–‡ä»¶ï¼Œå¦‚æœæ²¡æœ‰åˆ™åˆ›å»ºå®ƒï¼Œ
+			å†…å®¹æ˜¯éšæœºç”Ÿæˆçš„UUID(æ€»é•¿åº¦36ä½ï¼Œç”±5éƒ¨ä»½ç»„æˆï¼Œç”¨"-"åˆ†éš”)ï¼Œå¦‚: 6c43f934-37a2-4cae-9d49-3f5abfdc113d
 
-			4. ¶Á³ö"hbase.id"µÄÎÄ¼şµÄÄÚÈİ´æµ½clusterId×Ö¶Î
+			4. è¯»å‡º"hbase.id"çš„æ–‡ä»¶çš„å†…å®¹å­˜åˆ°clusterIdå­—æ®µ
 
-			5. ÅĞ¶Ïhbase.rootdirÄ¿Â¼ÖĞÊÇ·ñÓĞ"-ROOT-/70236052"Ä¿Â¼£¬Ã»ÓĞµÄ»°ËµÃ÷ÊÇµÚÒ»´ÎÆô¶¯hbase£¬½øÈë:
+			5. åˆ¤æ–­hbase.rootdirç›®å½•ä¸­æ˜¯å¦æœ‰"-ROOT-/70236052"ç›®å½•ï¼Œæ²¡æœ‰çš„è¯è¯´æ˜æ˜¯ç¬¬ä¸€æ¬¡å¯åŠ¨hbaseï¼Œè¿›å…¥:
 
 				5.1 bootstrap(final Path rd, final Configuration c)
 
-					µ÷ÓÃHRegion.createHRegion½¨Á¢"-ROOT-"·ÖÇøºÍ".META."·ÖÇøÊ±£¬Ä¿Â¼²¼¾ÖÈçÏÂ
+					è°ƒç”¨HRegion.createHRegionå»ºç«‹"-ROOT-"åˆ†åŒºå’Œ".META."åˆ†åŒºæ—¶ï¼Œç›®å½•å¸ƒå±€å¦‚ä¸‹
 					E:\HBASE\DATA
-					©¦  .hbase.id.crc
-					©¦  .hbase.version.crc
-					©¦  hbase.id
-					©¦  hbase.version
-					©¦
-					©À©¤-ROOT-
-					©¦  ©¸©¤70236052
-					©¦      ©¦  ..regioninfo.crc
-					©¦      ©¦  .regioninfo
-					©¦      ©¦
-					©¦      ©À©¤.logs
-					©¦      ©¦      .hlog.1329045483158.crc
-					©¦      ©¦      hlog.1329045483158
-					©¦      ©¦
-					©¦      ©À©¤.oldlogs
-					©¦      ©¸©¤info
-					©¸©¤.META
-						©¸©¤1028785192
-							©¦  ..regioninfo.crc
-							©¦  .regioninfo
-							©¦
-							©À©¤.logs
-							©¦      .hlog.1329045485940.crc
-							©¦      hlog.1329045485940
-							©¦
-							©À©¤.oldlogs
-							©¸©¤info
+					â”‚  .hbase.id.crc
+					â”‚  .hbase.version.crc
+					â”‚  hbase.id
+					â”‚  hbase.version
+					â”‚
+					â”œâ”€-ROOT-
+					â”‚  â””â”€70236052
+					â”‚      â”‚  ..regioninfo.crc
+					â”‚      â”‚  .regioninfo
+					â”‚      â”‚
+					â”‚      â”œâ”€.logs
+					â”‚      â”‚      .hlog.1329045483158.crc
+					â”‚      â”‚      hlog.1329045483158
+					â”‚      â”‚
+					â”‚      â”œâ”€.oldlogs
+					â”‚      â””â”€info
+					â””â”€.META
+						â””â”€1028785192
+							â”‚  ..regioninfo.crc
+							â”‚  .regioninfo
+							â”‚
+							â”œâ”€.logs
+							â”‚      .hlog.1329045485940.crc
+							â”‚      hlog.1329045485940
+							â”‚
+							â”œâ”€.oldlogs
+							â””â”€info
 
-					°Ñ".META."·ÖÇøĞÅÏ¢¼Óµ½"-ROOT-"±í£¬²¢¹Ø±Õ·ÖÇøºÍhlogÊ±
+					æŠŠ".META."åˆ†åŒºä¿¡æ¯åŠ åˆ°"-ROOT-"è¡¨ï¼Œå¹¶å…³é—­åˆ†åŒºå’Œhlogæ—¶
 					E:\HBASE\DATA
-					©¦  .hbase.id.crc
-					©¦  .hbase.version.crc
-					©¦  hbase.id
-					©¦  hbase.version
-					©¦
-					©À©¤-ROOT-  //"-ROOT-"±íÃû
-					©¦  ©¸©¤70236052 //"-ROOT-"·ÖÇøÃû
-					©¦      ©¦  ..regioninfo.crc
-					©¦      ©¦  .regioninfo //"-ROOT-"·ÖÇøÃèÊö±í¼ş
-					©¦      ©¦
-					©¦      ©À©¤.oldlogs
-					©¦      ©¦      .hlog.1329045483158.crc
-					©¦      ©¦      hlog.1329045483158
-					©¦      ©¦
-					©¦      ©À©¤.tmp
-					©¦      ©¸©¤info  //ÁĞ×åÃû
-					©¦              .c4d7a00bb555409f9a4a8b4fbc57f1bd.crc
-					©¦              c4d7a00bb555409f9a4a8b4fbc57f1bd       //´æ·Å".META."·ÖÇøĞÅÏ¢µÄStoreFile
-					©¦
-					©¸©¤.META
-						©¸©¤1028785192
-							©¦  ..regioninfo.crc
-							©¦  .regioninfo
-							©¦
-							©À©¤.oldlogs
-							©¦      .hlog.1329045485940.crc
-							©¦      hlog.1329045485940
-							©¦
-							©¸©¤info
+					â”‚  .hbase.id.crc
+					â”‚  .hbase.version.crc
+					â”‚  hbase.id
+					â”‚  hbase.version
+					â”‚
+					â”œâ”€-ROOT-  //"-ROOT-"è¡¨å
+					â”‚  â””â”€70236052 //"-ROOT-"åˆ†åŒºå
+					â”‚      â”‚  ..regioninfo.crc
+					â”‚      â”‚  .regioninfo //"-ROOT-"åˆ†åŒºæè¿°è¡¨ä»¶
+					â”‚      â”‚
+					â”‚      â”œâ”€.oldlogs
+					â”‚      â”‚      .hlog.1329045483158.crc
+					â”‚      â”‚      hlog.1329045483158
+					â”‚      â”‚
+					â”‚      â”œâ”€.tmp
+					â”‚      â””â”€info  //åˆ—æ—å
+					â”‚              .c4d7a00bb555409f9a4a8b4fbc57f1bd.crc
+					â”‚              c4d7a00bb555409f9a4a8b4fbc57f1bd       //å­˜æ”¾".META."åˆ†åŒºä¿¡æ¯çš„StoreFile
+					â”‚
+					â””â”€.META
+						â””â”€1028785192
+							â”‚  ..regioninfo.crc
+							â”‚  .regioninfo
+							â”‚
+							â”œâ”€.oldlogs
+							â”‚      .hlog.1329045485940.crc
+							â”‚      hlog.1329045485940
+							â”‚
+							â””â”€info
 
 
 
-				5.2  createRootTableInfo ½¨Á¢"-ROOT-"±íµÄÃèÊöÎÄ¼ş
+				5.2  createRootTableInfo å»ºç«‹"-ROOT-"è¡¨çš„æè¿°æ–‡ä»¶
 
-					ÅĞ¶Ïhbase.rootdir/-ROOT-Ä¿Â¼ÖĞÊÇ·ñ´æÔÚ.tableinfo¿ªÍ·µÄÎÄ¼ş
+					åˆ¤æ–­hbase.rootdir/-ROOT-ç›®å½•ä¸­æ˜¯å¦å­˜åœ¨.tableinfoå¼€å¤´çš„æ–‡ä»¶
 
 					
-			6. ´´½¨file:/E:/hbase/data/.oldlogsÄ¿Â¼
+			6. åˆ›å»ºfile:/E:/hbase/data/.oldlogsç›®å½•
 
 
-	Ö´ĞĞÍêMasterFileSystem¹¹Ôìº¯ÊıÊ±µÄÄ¿Â¼½á¹¹ÈçÏÂ:
+	æ‰§è¡Œå®ŒMasterFileSystemæ„é€ å‡½æ•°æ—¶çš„ç›®å½•ç»“æ„å¦‚ä¸‹:
 
 		E:\HBASE\DATA
-		©¦  .hbase.id.crc
-		©¦  .hbase.version.crc
-		©¦  hbase.id
-		©¦  hbase.version
-		©¦
-		©À©¤-ROOT-
-		©¦  ©¦  ..tableinfo.0000000001.crc
-		©¦  ©¦  .tableinfo.0000000001
-		©¦  ©¦
-		©¦  ©À©¤.tmp
-		©¦  ©¸©¤70236052
-		©¦      ©¦  ..regioninfo.crc
-		©¦      ©¦  .regioninfo
-		©¦      ©¦
-		©¦      ©À©¤.oldlogs
-		©¦      ©¦      .hlog.1329045483158.crc
-		©¦      ©¦      hlog.1329045483158
-		©¦      ©¦
-		©¦      ©À©¤.tmp
-		©¦      ©¸©¤info
-		©¦              .c4d7a00bb555409f9a4a8b4fbc57f1bd.crc
-		©¦              c4d7a00bb555409f9a4a8b4fbc57f1bd
-		©¦
-		©À©¤.META
-		©¦  ©¸©¤1028785192
-		©¦      ©¦  ..regioninfo.crc
-		©¦      ©¦  .regioninfo
-		©¦      ©¦
-		©¦      ©À©¤.oldlogs
-		©¦      ©¦      .hlog.1329045485940.crc
-		©¦      ©¦      hlog.1329045485940
-		©¦      ©¦
-		©¦      ©¸©¤info
-		©¸©¤.oldlogs
+		â”‚  .hbase.id.crc
+		â”‚  .hbase.version.crc
+		â”‚  hbase.id
+		â”‚  hbase.version
+		â”‚
+		â”œâ”€-ROOT-
+		â”‚  â”‚  ..tableinfo.0000000001.crc
+		â”‚  â”‚  .tableinfo.0000000001
+		â”‚  â”‚
+		â”‚  â”œâ”€.tmp
+		â”‚  â””â”€70236052
+		â”‚      â”‚  ..regioninfo.crc
+		â”‚      â”‚  .regioninfo
+		â”‚      â”‚
+		â”‚      â”œâ”€.oldlogs
+		â”‚      â”‚      .hlog.1329045483158.crc
+		â”‚      â”‚      hlog.1329045483158
+		â”‚      â”‚
+		â”‚      â”œâ”€.tmp
+		â”‚      â””â”€info
+		â”‚              .c4d7a00bb555409f9a4a8b4fbc57f1bd.crc
+		â”‚              c4d7a00bb555409f9a4a8b4fbc57f1bd
+		â”‚
+		â”œâ”€.META
+		â”‚  â””â”€1028785192
+		â”‚      â”‚  ..regioninfo.crc
+		â”‚      â”‚  .regioninfo
+		â”‚      â”‚
+		â”‚      â”œâ”€.oldlogs
+		â”‚      â”‚      .hlog.1329045485940.crc
+		â”‚      â”‚      hlog.1329045485940
+		â”‚      â”‚
+		â”‚      â””â”€info
+		â””â”€.oldlogs
 
 

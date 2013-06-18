@@ -1,16 +1,16 @@
-Á÷³Ì·ÖÎö£¬°´ÏÈºóË³Ğò
+æµç¨‹åˆ†æï¼ŒæŒ‰å…ˆåé¡ºåº
 
-1 HMaster¹¹Ôìº¯Êı
+1 HMasteræ„é€ å‡½æ•°
 
-  HRegionServer¹¹Ôìº¯Êı, HRegionServerµÄRPC¶Ë¿ÚÄ¬ÈÏÊÇ60020£¬masterµÄRPC¶Ë¿ÚÄ¬ÈÏÊÇ60000
-  HRegionServerµÄJetty(InfoServer)¶Ë¿ÚÄ¬ÈÏÊÇ60030£¬masterµÄJetty(InfoServer)¶Ë¿ÚÄ¬ÈÏÊÇ60010
+  HRegionServeræ„é€ å‡½æ•°, HRegionServerçš„RPCç«¯å£é»˜è®¤æ˜¯60020ï¼Œmasterçš„RPCç«¯å£é»˜è®¤æ˜¯60000
+  HRegionServerçš„Jetty(InfoServer)ç«¯å£é»˜è®¤æ˜¯60030ï¼Œmasterçš„Jetty(InfoServer)ç«¯å£é»˜è®¤æ˜¯60010
 
-  1.1 »ñÈ¡µ±Ç°ÔËĞĞHMasterµÄ»úÆ÷µÄµØÖ·
-  1.2 Éú³ÉHBaseServer¶ÔÏóÓÃÓÚ½ÓÊÕRPCÇëÇó£¬²¢Æô¶¯HBaseServerµÄÏà¹ØÏß³Ì
-  1.3 Éú³ÉZooKeeperWatcher¶ÔÏó
-      ÔÚ¹¹Ôìº¯ÊıÖĞÉú³ÉÕâĞ©³Ö¾Ã½áµã: /hbase, /hbase/unassigned, /hbase/rs, /hbase/table, /hbase/splitlog
+  1.1 è·å–å½“å‰è¿è¡ŒHMasterçš„æœºå™¨çš„åœ°å€
+  1.2 ç”ŸæˆHBaseServerå¯¹è±¡ç”¨äºæ¥æ”¶RPCè¯·æ±‚ï¼Œå¹¶å¯åŠ¨HBaseServerçš„ç›¸å…³çº¿ç¨‹
+  1.3 ç”ŸæˆZooKeeperWatcherå¯¹è±¡
+      åœ¨æ„é€ å‡½æ•°ä¸­ç”Ÿæˆè¿™äº›æŒä¹…ç»“ç‚¹: /hbase, /hbase/unassigned, /hbase/rs, /hbase/table, /hbase/splitlog
 
-	ZooKeeperWatcher¹ÜÀíÏÂÃæ10¸ö½áµã:
+	ZooKeeperWatcherç®¡ç†ä¸‹é¢10ä¸ªç»“ç‚¹:
 
 	baseZNode              "/hbase"
 	rootServerZNode        "/hbase/root-region-server"
@@ -24,7 +24,7 @@
 	splitLogZNode          "/hbase/splitlog"
 	schemaZNode            "/hbase/schema"
 
-	Õâ6¸ö½áµãÔÚZooKeeperWatcher¹¹Ôìº¯ÊıÖĞÉú³É
+	è¿™6ä¸ªç»“ç‚¹åœ¨ZooKeeperWatcheræ„é€ å‡½æ•°ä¸­ç”Ÿæˆ
 	baseZNode              "/hbase"
 	rsZNode                "/hbase/rs"
 	drainingZNode          "/hbase/draining"
@@ -33,84 +33,84 @@
 	splitLogZNode          "/hbase/splitlog"
 	schemaZNode            "/hbase/schema"
 
-	Õâ4¸öÔÚ²»Í¬µØ·½Éú³É
+	è¿™4ä¸ªåœ¨ä¸åŒåœ°æ–¹ç”Ÿæˆ
 	rootServerZNode        "/hbase/root-region-server"
-	masterAddressZNode     "/hbase/master" //ÔÚHMasterÖĞ½¨Á¢£¬²¢ÇÒÊÇÒ»¸ö¶ÌÔİ½áµã£¬½áµãµÄÖµÊÇHMasterµÄServerName
-	                                       //¼ûorg.apache.hadoop.hbase.master.ActiveMasterManager.blockUntilBecomingActiveMaster
+	masterAddressZNode     "/hbase/master" //åœ¨HMasterä¸­å»ºç«‹ï¼Œå¹¶ä¸”æ˜¯ä¸€ä¸ªçŸ­æš‚ç»“ç‚¹ï¼Œç»“ç‚¹çš„å€¼æ˜¯HMasterçš„ServerName
+	                                       //è§org.apache.hadoop.hbase.master.ActiveMasterManager.blockUntilBecomingActiveMaster
 	clusterStateZNode      "/hbase/shutdown"
-	clusterIdZNode         "/hbase/hbaseid" //ÔÚHMaster.finishInitialization·½·¨ÖĞµ÷ÓÃClusterId.setClusterId½¨Á¢£¬½áµãÖµÊÇUUID
+	clusterIdZNode         "/hbase/hbaseid" //åœ¨HMaster.finishInitializationæ–¹æ³•ä¸­è°ƒç”¨ClusterId.setClusterIdå»ºç«‹ï¼Œç»“ç‚¹å€¼æ˜¯UUID
 
-  1.4 Éú³ÉMasterMetrics¶ÔÏó
+  1.4 ç”ŸæˆMasterMetricså¯¹è±¡
 
 2 HMaster.run
   
   2.1
-  Éú³ÉActiveMasterManager¶ÔÏó£¬Èç¹û´ËHMaster×÷ÎªÒ»¸ö±¸·İ(backup)£¬
-  ÄÇÃ´ĞèÒªµÈµ½¼¯ÈºÖĞÓĞActive MasterÊ±²ÅÍùÏÂµ÷ÓÃblockUntilBecomingActiveMaster£¬
-  ²¢ÇÒµ÷ÓÃblockUntilBecomingActiveMasterÒ²»á×èÈû£¬Ö±µ½Ëü±ä³ÉActiveMaster¡£
+  ç”ŸæˆActiveMasterManagerå¯¹è±¡ï¼Œå¦‚æœæ­¤HMasterä½œä¸ºä¸€ä¸ªå¤‡ä»½(backup)ï¼Œ
+  é‚£ä¹ˆéœ€è¦ç­‰åˆ°é›†ç¾¤ä¸­æœ‰Active Masteræ—¶æ‰å¾€ä¸‹è°ƒç”¨blockUntilBecomingActiveMasterï¼Œ
+  å¹¶ä¸”è°ƒç”¨blockUntilBecomingActiveMasterä¹Ÿä¼šé˜»å¡ï¼Œç›´åˆ°å®ƒå˜æˆActiveMasterã€‚
 
-  Óë´ËÍ¬Ê±£¬ÔÚblockUntilBecomingActiveMasterÖĞ»á´´½¨¶ÌÔİ½áµã"/hbase/master"£¬
-  ´Ë½ÚµãµÄÖµÊÇHMasterµÄ°æ±¾»¯ServerName(Ò²¾ÍÊÇversion+ServerName)£¬
-  ´Ë½áµãÓÃÓÚĞ­µ÷region serverµÄÆô¶¯£¬Ö»ÓĞ"/hbase/master"´´½¨ºÃºó£¬region server²ÅÄÜÍùÏÂ½øĞĞ¡£
+  ä¸æ­¤åŒæ—¶ï¼Œåœ¨blockUntilBecomingActiveMasterä¸­ä¼šåˆ›å»ºçŸ­æš‚ç»“ç‚¹"/hbase/master"ï¼Œ
+  æ­¤èŠ‚ç‚¹çš„å€¼æ˜¯HMasterçš„ç‰ˆæœ¬åŒ–ServerName(ä¹Ÿå°±æ˜¯version+ServerName)ï¼Œ
+  æ­¤ç»“ç‚¹ç”¨äºåè°ƒregion serverçš„å¯åŠ¨ï¼Œåªæœ‰"/hbase/master"åˆ›å»ºå¥½åï¼Œregion serveræ‰èƒ½å¾€ä¸‹è¿›è¡Œã€‚
  
   2.2
-  µ÷ÓÃHMaster.finishInitialization
+  è°ƒç”¨HMaster.finishInitialization
 
     2.2.1
-	Éú³ÉMasterFileSystem¶ÔÏó
-	½¨Á¢ÓÉhbase-site.xmlµÄhbase.rootdirÊôĞÔÖ¸¶¨µÄÄ¿Â¼(Èç:file:/E:/hbase/data)
-	µ÷ÓÃFSUtils.setVersionÔÚhbase.rootdirÄ¿Â¼ÖĞ½¨Á¢Ò»¸öhbase.versionÎÄ¼ş£¬²¢Ğ´Èë°æ±¾ºÅ(HConstants.FILE_SYSTEM_VERSION=7)
-	ÅĞ¶Ï-ROOT-·ÖÇøÊÇ·ñ´æÔÚ£¬²»´æÔÚÔòµ÷ÓÃMasterFileSystem.bootstrapÀ´´´ĞÂ-ROOT-ºÍ.META.
+	ç”ŸæˆMasterFileSystemå¯¹è±¡
+	å»ºç«‹ç”±hbase-site.xmlçš„hbase.rootdirå±æ€§æŒ‡å®šçš„ç›®å½•(å¦‚:file:/E:/hbase/data)
+	è°ƒç”¨FSUtils.setVersionåœ¨hbase.rootdirç›®å½•ä¸­å»ºç«‹ä¸€ä¸ªhbase.versionæ–‡ä»¶ï¼Œå¹¶å†™å…¥ç‰ˆæœ¬å·(HConstants.FILE_SYSTEM_VERSION=7)
+	åˆ¤æ–­-ROOT-åˆ†åŒºæ˜¯å¦å­˜åœ¨ï¼Œä¸å­˜åœ¨åˆ™è°ƒç”¨MasterFileSystem.bootstrapæ¥åˆ›æ–°-ROOT-å’Œ.META.
 
-	×îºó´´½¨file:/E:/hbase/data/.oldlogsÄ¿Â¼
+	æœ€ååˆ›å»ºfile:/E:/hbase/data/.oldlogsç›®å½•
 
 	2.2.2
-	Èç¹û³Ö¾Ã½áµã"/hbase/hbaseid"²»´æÔÚÔò´´½¨Ëü£¬·ñÔò²»´´½¨£¬Í¬Ê±Ã¿´ÎmasterÆô¶¯Ê±¶¼»á°Ñ´Ë½ÚµãµÄÖµÉèÎªhbase.idÎÄ¼şÖĞµÄÖµ
+	å¦‚æœæŒä¹…ç»“ç‚¹"/hbase/hbaseid"ä¸å­˜åœ¨åˆ™åˆ›å»ºå®ƒï¼Œå¦åˆ™ä¸åˆ›å»ºï¼ŒåŒæ—¶æ¯æ¬¡masterå¯åŠ¨æ—¶éƒ½ä¼šæŠŠæ­¤èŠ‚ç‚¹çš„å€¼è®¾ä¸ºhbase.idæ–‡ä»¶ä¸­çš„å€¼
 
 	2.2.3
-	Éú³ÉExecutorService (TODO)
+	ç”ŸæˆExecutorService (TODO)
 
 	2.2.4
-	Éú³ÉServerManager (TODO)
+	ç”ŸæˆServerManager (TODO)
 
 	2.2.5
 	initializeZKBasedSystemTrackers
 
 	  2.2.5.1
-	  Éú³ÉCatalogTracker, Ëü°üº¬Á½¸öZooKeeperNodeTracker£¬·Ö±ğÊÇRootRegionTrackerºÍMetaNodeTracker£¬
-	  ¶ÔÓ¦/hbase/root-region-serverºÍ/hbase/unassigned/1028785192ÕâÁ½¸ö½áµã(1028785192ÊÇ.META.µÄ·ÖÇøÃû)
-	  Èç¹ûÖ®Ç°´ÓÎ´Æô¶¯¹ıhbase£¬ÄÇÃ´ÔÚstart CatalogTrackerÊ±ÕâÁ½¸ö½áµã²»´æÔÚ¡£
-	  /hbase/root-region-serverÊÇÒ»¸ö³Ö¾Ã½áµã£¬ÔÚRootLocationEditorÖĞ½¨Á¢
+	  ç”ŸæˆCatalogTracker, å®ƒåŒ…å«ä¸¤ä¸ªZooKeeperNodeTrackerï¼Œåˆ†åˆ«æ˜¯RootRegionTrackerå’ŒMetaNodeTrackerï¼Œ
+	  å¯¹åº”/hbase/root-region-serverå’Œ/hbase/unassigned/1028785192è¿™ä¸¤ä¸ªç»“ç‚¹(1028785192æ˜¯.META.çš„åˆ†åŒºå)
+	  å¦‚æœä¹‹å‰ä»æœªå¯åŠ¨è¿‡hbaseï¼Œé‚£ä¹ˆåœ¨start CatalogTrackeræ—¶è¿™ä¸¤ä¸ªç»“ç‚¹ä¸å­˜åœ¨ã€‚
+	  /hbase/root-region-serveræ˜¯ä¸€ä¸ªæŒä¹…ç»“ç‚¹ï¼Œåœ¨RootLocationEditorä¸­å»ºç«‹
 
 	  2.2.5.2
-	  Éú³ÉAssignmentManager 
+	  ç”ŸæˆAssignmentManager 
 
 	  2.2.5.3
-	  Éú³É LoadBalancer
+	  ç”Ÿæˆ LoadBalancer
 
 	  2.2.5.4
-	  Éú³É RegionServerTracker: ¼à¿Ø"/hbase/rs"½áµã
+	  ç”Ÿæˆ RegionServerTracker: ç›‘æ§"/hbase/rs"ç»“ç‚¹
 
 	  2.2.5.5
-	  Éú³É DrainingServerTracker: ¼à¿Ø"/hbase/draining"½áµã
+	  ç”Ÿæˆ DrainingServerTracker: ç›‘æ§"/hbase/draining"ç»“ç‚¹
 
 	  2.2.5.6
-	  Éú³É ClusterStatusTracker£¬Í¨¹ıËüµÄsetClusterUp·½·¨´´½¨³Ö¾Ã½áµã"/hbase/shutdown"£¬½áµãÖµÊÇµ±Ç°Ê±¼ä£¬
-	  Èç¹û½áµãÒÑ´æÔÚ(master¿ÉÄÜÎ´Õı³£¹Ø±Õ)£¬ÄÇÃ´´Ë½áµãµÄÖµ²»¸üĞÂ¡£
+	  ç”Ÿæˆ ClusterStatusTrackerï¼Œé€šè¿‡å®ƒçš„setClusterUpæ–¹æ³•åˆ›å»ºæŒä¹…ç»“ç‚¹"/hbase/shutdown"ï¼Œç»“ç‚¹å€¼æ˜¯å½“å‰æ—¶é—´ï¼Œ
+	  å¦‚æœç»“ç‚¹å·²å­˜åœ¨(masterå¯èƒ½æœªæ­£å¸¸å…³é—­)ï¼Œé‚£ä¹ˆæ­¤ç»“ç‚¹çš„å€¼ä¸æ›´æ–°ã€‚
 
 	
 	2.2.6
-	Éú³É MasterCoprocessorHost
+	ç”Ÿæˆ MasterCoprocessorHost
 
 	2.2.7
 	startServiceThreads()
 
-	Æô¶¯·şÎñÏß³Ì
-	(MASTER_OPEN_REGION¡¢MASTER_CLOSE_REGION¡¢MASTER_SERVER_OPERATIONS¡¢MASTER_META_SERVER_OPERATIONS¡¢MASTER_TABLE_OPERATIONS
-	Õâ¼¸¸öÖ»ÊÇÉú³ÉExecutor£¬²¢Î´ÕıÊ½Æô¶¯, ÕıÊ½Æô¶¯µÄÓĞLogCleaner£¬ºÍ»ùÓÚJettyµÄInfoServer(¶Ë¿ÚºÅÄ¬ÈÏÊÇ60010))
+	å¯åŠ¨æœåŠ¡çº¿ç¨‹
+	(MASTER_OPEN_REGIONã€MASTER_CLOSE_REGIONã€MASTER_SERVER_OPERATIONSã€MASTER_META_SERVER_OPERATIONSã€MASTER_TABLE_OPERATIONS
+	è¿™å‡ ä¸ªåªæ˜¯ç”ŸæˆExecutorï¼Œå¹¶æœªæ­£å¼å¯åŠ¨, æ­£å¼å¯åŠ¨çš„æœ‰LogCleanerï¼Œå’ŒåŸºäºJettyçš„InfoServer(ç«¯å£å·é»˜è®¤æ˜¯60010))
 	
 	2.2.8
-	µÈ´ıRegionServer×¢²á
+	ç­‰å¾…RegionServeræ³¨å†Œ
 
 	2.2.9
 	splitLogAfterStartup (TODO)
@@ -120,7 +120,7 @@
 		
 		2.2.10.1
 		processRegionInTransitionAndBlockUntilAssigned
-		ÏÈ¿´Ò»ÏÂ·ÖÇøÕıÔÚ×ª»»×´Ì¬µ±ÖĞ£¬Èç¹û´¦ÓÚ×ª»»×´Ì¬µ±ÖĞÔòÏÈ´¦ÀíÏà¹ØµÄ×´Ì¬£¬²¢µÈ´ıÌå´¦Àí½áÊøºóÔÙÍùÏÂ½øĞĞ¡£
+		å…ˆçœ‹ä¸€ä¸‹åˆ†åŒºæ­£åœ¨è½¬æ¢çŠ¶æ€å½“ä¸­ï¼Œå¦‚æœå¤„äºè½¬æ¢çŠ¶æ€å½“ä¸­åˆ™å…ˆå¤„ç†ç›¸å…³çš„çŠ¶æ€ï¼Œå¹¶ç­‰å¾…ä½“å¤„ç†ç»“æŸåå†å¾€ä¸‹è¿›è¡Œã€‚
 
 		2.2.10.2
 		verifyRootRegionLocation
@@ -134,13 +134,13 @@
 		2.2.10.4.B
 		assignRoot
 
-		ÏÈÉ¾µô"/hbase/root-region-server",²»¹ÜËü´æ²»´æÔÚ£¬KeeperException.NoNodeException±»ºöÂÔÁË
+		å…ˆåˆ æ‰"/hbase/root-region-server",ä¸ç®¡å®ƒå­˜ä¸å­˜åœ¨ï¼ŒKeeperException.NoNodeExceptionè¢«å¿½ç•¥äº†
 
-		Ğ´ÈëEventType.M_ZK_REGION_OFFLINE¡¢µ±Ç°Ê±¼ä´Á¡¢¸ú·ÖÇøÃû(-ROOT-,,0)¡¢masterµÄ°æ±¾»¯ServerName
-		µ½/hbase/unassigned/70236052, payloadÎªnull£¬ËùÒÔ²»Ğ´Èë
+		å†™å…¥EventType.M_ZK_REGION_OFFLINEã€å½“å‰æ—¶é—´æˆ³ã€è·Ÿåˆ†åŒºå(-ROOT-,,0)ã€masterçš„ç‰ˆæœ¬åŒ–ServerName
+		åˆ°/hbase/unassigned/70236052, payloadä¸ºnullï¼Œæ‰€ä»¥ä¸å†™å…¥
 
-		RegionServerĞŞ¸Ä/hbase/unassigned/70236052µÄÖµ£¬
-		Ğ´ÈëEventType.RS_ZK_REGION_OPENING¡¢µ±Ç°Ê±¼ä´Á¡¢¸ú·ÖÇøÃû(-ROOT-,,0)¡¢RegionServerµÄ°æ±¾»¯ServerName
+		RegionServerä¿®æ”¹/hbase/unassigned/70236052çš„å€¼ï¼Œ
+		å†™å…¥EventType.RS_ZK_REGION_OPENINGã€å½“å‰æ—¶é—´æˆ³ã€è·Ÿåˆ†åŒºå(-ROOT-,,0)ã€RegionServerçš„ç‰ˆæœ¬åŒ–ServerName
 
 	
 	2.2.11
@@ -148,20 +148,20 @@
 
 	2.2.12
 	assignmentManager.joinCluster()
-	°Ñmeta±íÖĞµÄ·ÖÇø¶Á³öÀ´£¬È»ºó·ÖÅäµ½Region Server,
-	meta±íÖ»ÓĞÒ»¸öÁĞ×å£ºinfo£¬´æÈëmetaµÄĞĞÓĞÈıÁĞ: 
-	regioninfo¡¢server¡¢serverstartcode£¬
-	ÆäÖĞregioninfo¶ÔÓ¦HRegionInfo£¬
-	server¶ÔÓ¦ServerNameµÄhostºÍport
-	serverstartcode¶ÔÓ¦ServerNameµÄstartcode(Ò»°ãÊÇÊ±¼ä´Á)¡£
+	æŠŠmetaè¡¨ä¸­çš„åˆ†åŒºè¯»å‡ºæ¥ï¼Œç„¶ååˆ†é…åˆ°Region Server,
+	metaè¡¨åªæœ‰ä¸€ä¸ªåˆ—æ—ï¼šinfoï¼Œå­˜å…¥metaçš„è¡Œæœ‰ä¸‰åˆ—: 
+	regioninfoã€serverã€serverstartcodeï¼Œ
+	å…¶ä¸­regioninfoå¯¹åº”HRegionInfoï¼Œ
+	serverå¯¹åº”ServerNameçš„hostå’Œport
+	serverstartcodeå¯¹åº”ServerNameçš„startcode(ä¸€èˆ¬æ˜¯æ—¶é—´æˆ³)ã€‚
 
 		2.2.12.1
 		rebuildUserRegions()
 			
 			2.2.12.1.1
-			µ÷ÓÃMetaReader.fullScan ´Ómeta±íÖĞÈ¡³öËùÓĞµÄ·ÖÇø£¬µÃµ½Ò»¸öList<Result>£¬
-			µ÷ÓÃMetaReader.parseCatalogResult£¬½âÎöÃ¿¸öresultµÃµ½Pair<HRegionInfo, ServerName>£¬
-			ÆäÖĞHRegionInfoÓÉregioninfoÁĞµÄÖµ·´ĞòÁĞ»¯µÃÀ´£¬ServerNameÓÉserver¡¢serverstartcodeÁ½ÁĞµÄÖµ·´ĞòÁĞ»¯ºó×éºÏ¶ø³É¡£
+			è°ƒç”¨MetaReader.fullScan ä»metaè¡¨ä¸­å–å‡ºæ‰€æœ‰çš„åˆ†åŒºï¼Œå¾—åˆ°ä¸€ä¸ªList<Result>ï¼Œ
+			è°ƒç”¨MetaReader.parseCatalogResultï¼Œè§£ææ¯ä¸ªresultå¾—åˆ°Pair<HRegionInfo, ServerName>ï¼Œ
+			å…¶ä¸­HRegionInfoç”±regioninfoåˆ—çš„å€¼ååºåˆ—åŒ–å¾—æ¥ï¼ŒServerNameç”±serverã€serverstartcodeä¸¤åˆ—çš„å€¼ååºåˆ—åŒ–åç»„åˆè€Œæˆã€‚
 
 		2.2.12.2
 		processDeadServersAndRegionsInTransition
